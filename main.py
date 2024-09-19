@@ -36,6 +36,16 @@ def task_manager():
             status = "Completed" if task['completed'] else "Not Completed"
             print(f"    - {task['description']} - [{status}]")
 
+
+    def list_filtered_tasks(completed=True):
+        filtered_tasks = list(filter(lambda task: task['completed'] == completed, task_list))
+        status = "Completed" if completed else "Not Completed"
+        print(f"\nTasks [{status}]:")
+        for task in filtered_tasks:
+            print(f"   - {task['description']}")
+
+    
+
     def show_status():
         print(
             f"\nStatus:\n    - Total tasks: {total_tasks},\n    - Finished tasks: {tasks_done},\n    - Not done tasks: {total_tasks - tasks_done}"
@@ -45,6 +55,7 @@ def task_manager():
         'add': add_task,
         'finish': finish_task,
         'list': list_tasks,
+        'filter': list_filtered_tasks,
         'status': show_status
     }
 
@@ -64,3 +75,6 @@ manage['finish']('Cook')
 
 manage['list']()
 manage['status']()
+
+manage['filter'](completed=False)
+manage['filter'](completed=True)
